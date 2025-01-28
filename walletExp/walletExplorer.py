@@ -18,9 +18,9 @@ client = JsonRpcClient(URL)
 
 # PostgreSQL Connection Details
 
-DB_NAME = "gr"
+DB_NAME = ""
 DB_USER = "postgres"
-DB_PASS = "postgres"
+DB_PASS = ""
 DB_HOST = "localhost"
 DB_PORT = "5432"
 
