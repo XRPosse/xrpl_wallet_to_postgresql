@@ -1,0 +1,37 @@
+{
+    "Account": "rn9GoAJZbfJ8nKECjTQfTPnJc7KKtFP23G",
+    "Amount": {
+        "currency": "504F535345000000000000000000000000000000",
+        "issuer": "rGTDuhZSHvU57MiZXCdPeMurri3rsz7dph",
+        "value": "630512.292918"
+    },
+    "Asset": {
+        "currency": "XRP"
+    },
+    "Asset2": {
+        "currency": "504F535345000000000000000000000000000000",
+        "issuer": "rGTDuhZSHvU57MiZXCdPeMurri3rsz7dph"
+    },
+    "Fee": "12",
+    "Flags": 2097152,
+    "LPTokenIn": {
+        "currency": "0374E8F440C94EEDBAF712C52DD9775E910A18D9",
+        "issuer": "rByRW8FUAuqsz12eki5YcodbpfUAcS1bKj",
+        "value": "500000"
+    },
+    "LastLedgerSequence": 93725008,
+    "Memos": [
+        {
+            "Memo": {
+                "MemoData": "5472616E73616374696F6E20696E6974696174656420627920786D61676E657469632E6F72670A414D4D576974686472617720666F7220585250203A20504F535345"
+            }
+        }
+    ],
+    "Sequence": 93723326,
+    "SigningPubKey": "03FA1490BFB7E04F25237495D4DF5C771E0FBC0DAC340A6014D724F41D36530B55",
+    "SourceTag": 10011010,
+    "TransactionType": "AMMWithdraw",
+    "TxnSignature": "3045022100E3380964B6D4003562BF8D4E86666489A8B5FC1AC691BA0FB3B9822B57E1EF870220711829C645AA03F2B5F262A37CF8AD9FC74B5F159E630920ED846396F0948EEE",
+    "ledger_index": 93724990,
+    "date": 791235072
+}

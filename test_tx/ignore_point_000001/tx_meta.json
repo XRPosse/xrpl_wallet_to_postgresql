@@ -1,0 +1,44 @@
+{
+    "AffectedNodes": [
+        {
+            "ModifiedNode": {
+                "FinalFields": {
+                    "Account": "rnYgaEtpqpNRt3wxE39demVpDAA817rQEY",
+                    "Balance": "36531507",
+                    "Flags": 0,
+                    "OwnerCount": 0,
+                    "Sequence": 93236484
+                },
+                "LedgerEntryType": "AccountRoot",
+                "LedgerIndex": "175DA1E455A33460848BA794AF3693125D5A42E631E406C9AFE670F6E383812A",
+                "PreviousFields": {
+                    "Balance": "36537253",
+                    "Sequence": 93236483
+                },
+                "PreviousTxnID": "28AFD3EF72DCC6877C7FE3A937FE947CD8575A74ECE5A9A1055BD34A6416CE1E",
+                "PreviousTxnLgrSeq": 93724834
+            }
+        },
+        {
+            "ModifiedNode": {
+                "FinalFields": {
+                    "Account": "rn9GoAJZbfJ8nKECjTQfTPnJc7KKtFP23G",
+                    "Balance": "7340858",
+                    "Flags": 0,
+                    "OwnerCount": 1,
+                    "Sequence": 93723322
+                },
+                "LedgerEntryType": "AccountRoot",
+                "LedgerIndex": "1C62CE26C999C6DB59A3F057F68FCAA2CDC7D04EEE55ECA58298E6BE9B4AE397",
+                "PreviousFields": {
+                    "Balance": "7340857"
+                },
+                "PreviousTxnID": "28AFD3EF72DCC6877C7FE3A937FE947CD8575A74ECE5A9A1055BD34A6416CE1E",
+                "PreviousTxnLgrSeq": 93724834
+            }
+        }
+    ],
+    "TransactionIndex": 115,
+    "TransactionResult": "tesSUCCESS",
+    "delivered_amount": "1"
+}

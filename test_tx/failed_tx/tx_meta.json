@@ -1,0 +1,25 @@
+{
+    "AffectedNodes": [
+        {
+            "ModifiedNode": {
+                "FinalFields": {
+                    "Account": "rn9GoAJZbfJ8nKECjTQfTPnJc7KKtFP23G",
+                    "Balance": "5019118",
+                    "Flags": 0,
+                    "OwnerCount": 2,
+                    "Sequence": 93723327
+                },
+                "LedgerEntryType": "AccountRoot",
+                "LedgerIndex": "1C62CE26C999C6DB59A3F057F68FCAA2CDC7D04EEE55ECA58298E6BE9B4AE397",
+                "PreviousFields": {
+                    "Balance": "5019130",
+                    "Sequence": 93723326
+                },
+                "PreviousTxnID": "212B27AE4D7D35C64B8E2752DD61573D39998B303FFDE8AB9E78AB9FBDB5FE12",
+                "PreviousTxnLgrSeq": 93724980
+            }
+        }
+    ],
+    "TransactionIndex": 117,
+    "TransactionResult": "tecAMM_FAILED"
+}

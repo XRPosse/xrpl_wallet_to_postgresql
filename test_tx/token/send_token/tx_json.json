@@ -1,0 +1,26 @@
+{
+    "Account": "rn9GoAJZbfJ8nKECjTQfTPnJc7KKtFP23G",
+    "DeliverMax": {
+        "currency": "504F535345000000000000000000000000000000",
+        "issuer": "rGTDuhZSHvU57MiZXCdPeMurri3rsz7dph",
+        "value": "479331.778012746"
+    },
+    "Destination": "rJhXhcgHvBcsdr2N7aBES9Fj9GkqWEakFm",
+    "DestinationTag": 0,
+    "Fee": "12",
+    "LastLedgerSequence": 93725168,
+    "Memos": [
+        {
+            "Memo": {
+                "MemoData": "5472616E73616374696F6E20696E6974696174656420627920786D61676E657469632E6F7267"
+            }
+        }
+    ],
+    "Sequence": 93723331,
+    "SigningPubKey": "03FA1490BFB7E04F25237495D4DF5C771E0FBC0DAC340A6014D724F41D36530B55",
+    "SourceTag": 10011010,
+    "TransactionType": "Payment",
+    "TxnSignature": "3044022072DFE65E263D3D24C0066A06816D85005241C04BDD25703DBF86049BD05DBBFA02206EA53EAEC6662249D3747632E9D4E1EDE59AF3745DB7A8780659FC8F23805423",
+    "ledger_index": 93725150,
+    "date": 791235701
+}

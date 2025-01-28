@@ -1,0 +1,14 @@
+{
+    "Account": "rnYgaEtpqpNRt3wxE39demVpDAA817rQEY",
+    "DeliverMax": "1",
+    "Destination": "rn9GoAJZbfJ8nKECjTQfTPnJc7KKtFP23G",
+    "Fee": "5745",
+    "Flags": 0,
+    "LastLedgerSequence": 93724933,
+    "Sequence": 93236483,
+    "SigningPubKey": "EDA090B8F12883FF6DBE97FE9503DAD5AC2E26B7C9F8BFBB35B57A5BB719F7BDA7",
+    "TransactionType": "Payment",
+    "TxnSignature": "8B6941A103F323230014FB6E7101E0259DAC44BE5C90B784273F2580EC34695F60BB6BCB5195FD519A1014622A05C8DC4C088AC8859DB6487E1307993AFF2000",
+    "ledger_index": 93724834,
+    "date": 791234451
+}

@@ -1,0 +1,33 @@
+{
+    "Account": "rn9GoAJZbfJ8nKECjTQfTPnJc7KKtFP23G",
+    "Amount": "1321680",
+    "Amount2": {
+        "currency": "504F535345000000000000000000000000000000",
+        "issuer": "rGTDuhZSHvU57MiZXCdPeMurri3rsz7dph",
+        "value": "500000"
+    },
+    "Asset": {
+        "currency": "XRP"
+    },
+    "Asset2": {
+        "currency": "504F535345000000000000000000000000000000",
+        "issuer": "rGTDuhZSHvU57MiZXCdPeMurri3rsz7dph"
+    },
+    "Fee": "12",
+    "Flags": 1048576,
+    "LastLedgerSequence": 93724924,
+    "Memos": [
+        {
+            "Memo": {
+                "MemoData": "5472616E73616374696F6E20696E6974696174656420627920786D61676E657469632E6F72670A414D4D4465706F73697420666F7220585250203A20504F535345"
+            }
+        }
+    ],
+    "Sequence": 93723324,
+    "SigningPubKey": "03FA1490BFB7E04F25237495D4DF5C771E0FBC0DAC340A6014D724F41D36530B55",
+    "SourceTag": 10011010,
+    "TransactionType": "AMMDeposit",
+    "TxnSignature": "304402205DB9F292750080FAE4990CF6CE2C95E53CAE2C7300EC388549E299F5070A2A0F02201A5BDEC5B01C0729155549DEBE37ECD5208CBC7117D1EDD034B586A10EC57A95",
+    "ledger_index": 93724906,
+    "date": 791234741
+}

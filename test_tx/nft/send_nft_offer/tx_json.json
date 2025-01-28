@@ -1,0 +1,23 @@
+{
+    "Account": "rn9GoAJZbfJ8nKECjTQfTPnJc7KKtFP23G",
+    "Amount": "0",
+    "Destination": "rJhXhcgHvBcsdr2N7aBES9Fj9GkqWEakFm",
+    "Fee": "12",
+    "Flags": 1,
+    "LastLedgerSequence": 93725573,
+    "Memos": [
+        {
+            "Memo": {
+                "MemoData": "53656C6C206F66666572206279207872702E63616665"
+            }
+        }
+    ],
+    "NFTokenID": "00080000675C4D072DFEB9A6C75F71BBE51F43B174D751DE3CDCDE5C00000094",
+    "Sequence": 93723336,
+    "SigningPubKey": "03FA1490BFB7E04F25237495D4DF5C771E0FBC0DAC340A6014D724F41D36530B55",
+    "SourceTag": 101102979,
+    "TransactionType": "NFTokenCreateOffer",
+    "TxnSignature": "30450221008B2CBFC26C94388D0E7EAA72045B85A72E3372F9245CE46F0C70F6A3CE1A0A1902207684FCCFFBA061685C146EBC5B25C098D1E1B75D6E5333AC4365230388D4BC2A",
+    "ledger_index": 93725554,
+    "date": 791237292
+}
