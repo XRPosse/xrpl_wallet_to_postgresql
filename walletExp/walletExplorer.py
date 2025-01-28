@@ -117,15 +117,15 @@ def process_transaction(tx, wallet_address, cursor, conn):
                 try:
                     delivered_amount = tx['tx_json']['DeliverMax']['currency']
                     if from_wallet == wallet_address:
-                        action = 'token_payment'
-                    else:
-                        action = 'token_receive'
-                    isXRP = False
-                except Exception as e:
-                    if from_wallet == wallet_address:
                         action = 'xrp_payment'
                     else:
                         action = 'xrp_receive'
+                    isXRP = False
+                except Exception as e:
+                    if from_wallet != wallet_address:
+                        action = 'xrp_receive'
+                    else:
+                        action = 'xrp_payment'
                     isXRP = True
 
             if isXRP:
