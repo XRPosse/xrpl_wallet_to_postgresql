@@ -181,25 +181,34 @@ def process_transaction(tx, wallet_address, cursor, conn):
 
             if isDbl:
                 try:
-                    tkn_id = tx['tx_json']['Asset2']['currency']
-                    tkn_issuer = tx['tx_json']['Asset2']['issuer']
-                    amm_token_node = tx['meta']['AffectedNodes'][6]
-                    token_node = tx['meta']['AffectedNodes'][4]
+                    if tx['tx_json']['Asset']['currency'] == 'XRP':
+                        tkn_id = tx['tx_json']['Asset2']['currency']
+                        tkn_issuer = tx['tx_json']['Asset2']['issuer']
+                    else:
+                        tkn_id = tx['tx_json']['Asset']['currency']
+                        tkn_issuer = tx['tx_json']['Asset']['issuer']
+
+                    for node in tx['meta']['AffectedNodes']:
+                        if 'ModifiedNode' in node and 'FinalFields' in node['ModifiedNode'] and 'LPTokenBalance' in node['ModifiedNode']['FinalFields'] and 'PreviousFields' in node['ModifiedNode'] and 'LPTokenBalance' in node['ModifiedNode']['PreviousFields']:
+                            amm_token_node = node
+                        if 'ModifiedNode' in node and 'FinalFields' in node['ModifiedNode'] and 'Balance' in node['ModifiedNode']['FinalFields'] and 'PreviousFields' in node['ModifiedNode'] and 'Balance' in node['ModifiedNode']['PreviousFields'] and 'currency' in node['ModifiedNode']['PreviousFields']['Balance'] and node['ModifiedNode']['PreviousFields']['Balance']['currency'] == tkn_id:
+                            tkn_node = node
+
                     xrp_node = tx['meta']['AffectedNodes'][0]
-
-                    tkn_final_balance = token_node['ModifiedNode']['FinalFields']['Balance']['value']
-                    tkn_prev_balance = token_node['ModifiedNode']['PreviousFields']['Balance']['value']
-                    tkn_value =  float(tkn_final_balance) - float(tkn_prev_balance)
-
-                    xrp_final_balance = xrp_node['ModifiedNode']['FinalFields']['Balance']
-                    xrp_prev_balance = xrp_node['ModifiedNode']['PreviousFields']['Balance']
-                    xrp_value =  float(xrp_final_balance) - float(xrp_prev_balance)
-
                     lp_tkn_id = amm_token_node['ModifiedNode']['FinalFields']['LPTokenBalance']['currency']
                     lp_tkn_issuer = amm_token_node['ModifiedNode']['FinalFields']['LPTokenBalance']['issuer']
                     final_balance = amm_token_node['ModifiedNode']['FinalFields']['LPTokenBalance']['value']
                     prev_balance = amm_token_node['ModifiedNode']['PreviousFields']['LPTokenBalance']['value']
-                    lp_tkn_value =  float(final_balance) - float(prev_balance)
+                    lp_tkn_value =  abs(float(final_balance) - float(prev_balance))
+                    
+                    tkn_final_balance = tkn_node['ModifiedNode']['FinalFields']['Balance']['value']
+                    tkn_prev_balance = tkn_node['ModifiedNode']['PreviousFields']['Balance']['value']
+                    tkn_value =  abs(float(tkn_final_balance) - float(tkn_prev_balance))
+
+                    xrp_final_balance = xrp_node['ModifiedNode']['FinalFields']['Balance']
+                    xrp_prev_balance = xrp_node['ModifiedNode']['PreviousFields']['Balance']
+                    xrp_value =  abs(float(xrp_final_balance) - float(xrp_prev_balance))
+
                     action = 'amm_dbl_withdrawl'
                     isDbl = True
                 except:
@@ -325,7 +334,7 @@ def main(wallet_address):
             create_tables(cursor, conn, wallet_address)
             response = client.request(AccountTx(account=wallet_address, ledger_index_min=-1, ledger_index_max=-1))
             for tx in response.result['transactions']:
-                # tx_to_files(tx)
+                tx_to_files(tx)
                 process_transaction(tx, wallet_address, cursor, conn)
             conn.commit()
 
