@@ -131,28 +131,24 @@ def process_transaction(tx, wallet_address, cursor, conn):
             if isXRP:
                 try:
                     delivered_amount = tx['meta']['delivered_amount']
-                    q = "INSERT INTO %s (id, timestamp, tx_hash, action, tkn_id, xrp_value, sender_wallet, receiver_wallet) VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)" % wallet_address
-                    cursor.execute(q, (id, dt, tx_hash, action, 'xrp', delivered_amount, from_wallet, to_wallet))
+                    cursor.execute("INSERT INTO rJf9D35rEzgsgQ9UwDbfYAPwvLRPsjKmV8 (id, timestamp, tx_hash, action, tkn_id, xrp_value, sender_wallet, receiver_wallet) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (id, dt, tx_hash, action, 'xrp', delivered_amount, from_wallet, to_wallet))
                 except Exception as e:
                     print('delivered_amount error:', e)
             elif action == 'token_payment' or action == 'token_receive':
                 try:
                     delivered_value = tx['meta']['delivered_amount']['value']
-                    q = "INSERT INTO %s (id, timestamp, tx_hash, action, tkn_id, tkn_issuer, tkn_value, sender_wallet, receiver_wallet) VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)" % wallet_address
-                    cursor.execute(q, (id, dt, tx_hash, action, deliverCurrency, deliverCurrencyIssuer, delivered_value, from_wallet, to_wallet))
+                    cursor.execute("INSERT INTO rJf9D35rEzgsgQ9UwDbfYAPwvLRPsjKmV8 (id, timestamp, tx_hash, action, tkn_id, tkn_issuer, tkn_value, sender_wallet, receiver_wallet) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (id, dt, tx_hash, action, deliverCurrency, deliverCurrencyIssuer, delivered_value, from_wallet, to_wallet))
                 except Exception as e:
                     print('token_payment error:', e)
             elif action == 'token_purchase':
                 try:
-                    q = "INSERT INTO %s (id, timestamp, tx_hash, action, xrp_value, tkn_id, tkn_issuer, tkn_value, sender_wallet, receiver_wallet) VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)" % wallet_address
-                    cursor.execute(q, (id, dt, tx_hash, action, amount_xrp_paid, deliverCurrency, deliverCurrencyIssuer, amount_token_recieved, from_wallet, to_wallet))
+                    cursor.execute("INSERT INTO rJf9D35rEzgsgQ9UwDbfYAPwvLRPsjKmV8 (id, timestamp, tx_hash, action, xrp_value, tkn_id, tkn_issuer, tkn_value, sender_wallet, receiver_wallet) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (id, dt, tx_hash, action, amount_xrp_paid, deliverCurrency, deliverCurrencyIssuer, amount_token_recieved, from_wallet, to_wallet))
                 except Exception as e:
                     print('token_purchase error:', e)
                 # sell token
             elif action == 'token_sell':
                 try:
-                    q = "INSERT INTO %s (id, timestamp, tx_hash, action, tkn_id, tkn_issuer, tkn_value, xrp_value, sender_wallet, receiver_wallet) VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)" % wallet_address
-                    cursor.execute(q, (id, dt, tx_hash, action, sold_currency, sold_currencyIssuer, sold_amount, xrp_recieved, from_wallet, to_wallet))
+                    cursor.execute("INSERT INTO rJf9D35rEzgsgQ9UwDbfYAPwvLRPsjKmV8 (id, timestamp, tx_hash, action, tkn_id, tkn_issuer, tkn_value, xrp_value, sender_wallet, receiver_wallet) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (id, dt, tx_hash, action, sold_currency, sold_currencyIssuer, sold_amount, xrp_recieved, from_wallet, to_wallet))
                 except Exception as e:
                     print('token_sell error:', e)
         
@@ -218,8 +214,7 @@ def process_transaction(tx, wallet_address, cursor, conn):
                     isDbl = True
                 except:
                     isDbl = False
-            q = "INSERT INTO %s (id, timestamp, tx_hash, action, lp_tkn_id, lp_tkn_issuer, lp_tkn_value, xrp_value, tkn_id, tkn_issuer, tkn_value, sender_wallet) VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)" % wallet_address
-            cursor.execute(q, (id, dt, tx_hash, action, lp_tkn_id, lp_tkn_issuer, lp_tkn_value, xrp_value, tkn_id, tkn_issuer, tkn_value, from_wallet))
+            cursor.execute("INSERT INTO rJf9D35rEzgsgQ9UwDbfYAPwvLRPsjKmV8 (id, timestamp, tx_hash, action, lp_tkn_id, lp_tkn_issuer, lp_tkn_value, xrp_value, tkn_id, tkn_issuer, tkn_value, sender_wallet) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (id, dt, tx_hash, action, lp_tkn_id, lp_tkn_issuer, lp_tkn_value, xrp_value, tkn_id, tkn_issuer, tkn_value, from_wallet))
         
         elif tx_type == 'AMMDeposit':
             try:
@@ -280,8 +275,7 @@ def process_transaction(tx, wallet_address, cursor, conn):
                 except Exception as e:
                     print('amm_dbl_deposit error', e)
                     isDbl = False
-            q ="INSERT INTO %s (id, timestamp, tx_hash, action, lp_tkn_id, lp_tkn_issuer, lp_tkn_value, xrp_value, tkn_id, tkn_issuer, tkn_value, sender_wallet) VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)" % wallet_address
-            cursor.execute(q, (id, dt, tx_hash, action, lp_tkn_id, lp_tkn_issuer, lp_tkn_value, xrp_value, tkn_id, tkn_issuer, tkn_value, from_wallet))
+            cursor.execute("INSERT INTO rJf9D35rEzgsgQ9UwDbfYAPwvLRPsjKmV8 (id, timestamp, tx_hash, action, lp_tkn_id, lp_tkn_issuer, lp_tkn_value, xrp_value, tkn_id, tkn_issuer, tkn_value, sender_wallet) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (id, dt, tx_hash, action, lp_tkn_id, lp_tkn_issuer, lp_tkn_value, xrp_value, tkn_id, tkn_issuer, tkn_value, from_wallet))
         
         elif tx_type == 'NFTokenAcceptOffer':
             if tx['tx_json']['Account'] != wallet_address and 'NFTokenBuyOffer' not in tx['tx_json']:
@@ -323,8 +317,7 @@ def process_transaction(tx, wallet_address, cursor, conn):
                             xrp_value = abs(dif)
                             from_wallet = tx['tx_json']['Account']
                             to_wallet = wallet_address
-            q = "INSERT INTO %s (id, timestamp, tx_hash, action, nft_id, nft_sending_owner, xrp_value, sender_wallet, receiver_wallet) VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)" % wallet_address
-            cursor.execute(q, (id, dt, tx_hash, action, nft_id, nft_sending_owner, xrp_value, from_wallet, to_wallet))
+            cursor.execute("INSERT INTO rJf9D35rEzgsgQ9UwDbfYAPwvLRPsjKmV8 (id, timestamp, tx_hash, action, nft_id, nft_sending_owner, xrp_value, sender_wallet, receiver_wallet)VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (id, dt, tx_hash, action, nft_id, nft_sending_owner, xrp_value, from_wallet, to_wallet))
 
         elif tx_type == 'TrustSet':
             tkn_id = tx['tx_json']['LimitAmount']['currency']
@@ -334,8 +327,7 @@ def process_transaction(tx, wallet_address, cursor, conn):
                 action = 'trust_remove'
             else:
                 action = 'trust_add'
-            q = "INSERT INTO %s (id, timestamp, tx_hash, action, tkn_id, tkn_issuer, sender_wallet) VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s)" % wallet_address
-            cursor.execute(q, (id, dt, tx_hash, action, tkn_id, tkn_issuer, wallet_address))
+            cursor.execute("INSERT INTO rJf9D35rEzgsgQ9UwDbfYAPwvLRPsjKmV8 (id, timestamp, tx_hash, action, tkn_id, tkn_issuer, sender_wallet) VALUES (%s, %s, %s, %s, %s, %s, %s)", (id, dt, tx_hash, action, tkn_id, tkn_issuer, wallet_address))
         
 def main(wallet_address):
     with psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_USER, host=DB_HOST, port=DB_PORT) as conn:
