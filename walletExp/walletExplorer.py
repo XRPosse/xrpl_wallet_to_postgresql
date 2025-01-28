@@ -48,6 +48,29 @@ def create_tables(cursor, conn, wallet_id):
     cursor.execute(cm)
     conn.commit()
 
+def get_full_transaction_history(wallet_address):
+    transactions = []
+    marker = None
+
+    while True:
+        response = client.request(AccountTx(
+            account=wallet_address,
+            ledger_index_min=-1,
+            ledger_index_max=-1,
+            limit=200,  # Adjust the limit as needed
+            marker=marker
+        ))
+
+        transactions.extend(response.result['transactions'])
+
+        # Check if there is a marker for the next page
+        if 'marker' in response.result:
+            marker = response.result['marker']
+        else:
+            break
+
+    return transactions
+
 def tx_to_files(tx):
     # print('tx meta:', tx['meta'])
     # os.mkdir(f'/home/rese/Documents/rese/xrplWalletTracker/test_tx/{str(isit)}')
@@ -89,12 +112,13 @@ def process_transaction(tx, wallet_address, cursor, conn):
         dt = dtz.replace(tzinfo=pytz.UTC)
         id = int(dt.replace(tzinfo=timezone.utc).timestamp())
 
-        print('tx_type:', tx_type)
+        # print('tx_type:', tx_type)
         if tx_type == 'Payment' and tx['meta']['delivered_amount'] != '1':
+            isXRP = False
             to_wallet = tx['tx_json']['Destination']
             try:
-                deliverCurrency = tx['tx_json']['DeliverMax']['currency']
-                deliverCurrencyIssuer = tx['tx_json']['DeliverMax']['issuer']
+                deliver_currency = tx['tx_json']['DeliverMax']['currency']
+                deliver_currency_issuer = tx['tx_json']['DeliverMax']['issuer']
                 amount_token_recieved = tx['meta']['delivered_amount']['value']
                 amount_xrp_paid = tx['tx_json']['SendMax']
                 action = 'token_purchase'
@@ -115,19 +139,28 @@ def process_transaction(tx, wallet_address, cursor, conn):
 
             if isXRP:
                 try:
-                    delivered_amount = tx['tx_json']['DeliverMax']['currency']
+                    if wallet_address == from_wallet:
+                        action = 'token_payment'
+                    else:
+                        action = 'token_receive'
+                    pr_currency = tx['meta']['delivered_amount']['currency']
+                    pr_currency_issuer = tx['meta']['delivered_amount']['issuer']
+                    pr_amount = tx['meta']['delivered_amount']['value']
+                    isXRP = False
+                except:
+                    isXRP = True
+
+            if isXRP:
+                try:
                     if from_wallet == wallet_address:
                         action = 'xrp_payment'
                     else:
                         action = 'xrp_receive'
-                    isXRP = False
-                except Exception as e:
-                    if from_wallet != wallet_address:
-                        action = 'xrp_receive'
-                    else:
-                        action = 'xrp_payment'
                     isXRP = True
+                except Exception as e:
+                    isXRP = False
 
+            # print('action:', action)
             if isXRP:
                 try:
                     delivered_amount = tx['meta']['delivered_amount']
@@ -135,17 +168,17 @@ def process_transaction(tx, wallet_address, cursor, conn):
                     cursor.execute(q, (id, dt, tx_hash, action, 'xrp', delivered_amount, from_wallet, to_wallet))
                 except Exception as e:
                     print('delivered_amount error:', e)
+                    
             elif action == 'token_payment' or action == 'token_receive':
                 try:
-                    delivered_value = tx['meta']['delivered_amount']['value']
                     q = "INSERT INTO %s (id, timestamp, tx_hash, action, tkn_id, tkn_issuer, tkn_value, sender_wallet, receiver_wallet) VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)" % wallet_address
-                    cursor.execute(q, (id, dt, tx_hash, action, deliverCurrency, deliverCurrencyIssuer, delivered_value, from_wallet, to_wallet))
+                    cursor.execute(q, (id, dt, tx_hash, action, pr_currency, pr_currency_issuer, pr_amount, from_wallet, to_wallet))
                 except Exception as e:
                     print('token_payment error:', e)
             elif action == 'token_purchase':
                 try:
                     q = "INSERT INTO %s (id, timestamp, tx_hash, action, xrp_value, tkn_id, tkn_issuer, tkn_value, sender_wallet, receiver_wallet) VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)" % wallet_address
-                    cursor.execute(q, (id, dt, tx_hash, action, amount_xrp_paid, deliverCurrency, deliverCurrencyIssuer, amount_token_recieved, from_wallet, to_wallet))
+                    cursor.execute(q, (id, dt, tx_hash, action, amount_xrp_paid, deliver_currency, deliver_currency_issuer, amount_token_recieved, from_wallet, to_wallet))
                 except Exception as e:
                     print('token_purchase error:', e)
                 # sell token
@@ -341,9 +374,10 @@ def main(wallet_address):
     with psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_USER, host=DB_HOST, port=DB_PORT) as conn:
         with conn.cursor() as cursor:
             create_tables(cursor, conn, wallet_address)
-            response = client.request(AccountTx(account=wallet_address, ledger_index_min=-1, ledger_index_max=-1))
-            for tx in response.result['transactions']:
-                tx_to_files(tx)
+            ftx = get_full_transaction_history(wallet_address)
+            # response = client.request(AccountTx(account=wallet_address, ledger_index_min=-1, ledger_index_max=-1))
+            for tx in ftx:
+                # tx_to_files(tx)
                 process_transaction(tx, wallet_address, cursor, conn)
             conn.commit()
 

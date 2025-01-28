@@ -1,15 +1,26 @@
 {
     "Account": "rJf9D35rEzgsgQ9UwDbfYAPwvLRPsjKmV8",
-    "DeliverMax": "6000000",
-    "Destination": "r4FeimVAwDXbqDQbLCFfidBjkgL8682xeC",
+    "Amount": "106482963",
+    "Amount2": {
+        "currency": "244C494654000000000000000000000000000000",
+        "issuer": "rfxkTvVqvmJnHADMcGjZw8Naye9Vs411xk",
+        "value": "3992291894.86649"
+    },
+    "Asset": {
+        "currency": "XRP"
+    },
+    "Asset2": {
+        "currency": "244C494654000000000000000000000000000000",
+        "issuer": "rfxkTvVqvmJnHADMcGjZw8Naye9Vs411xk"
+    },
     "Fee": "12",
-    "Flags": 0,
-    "LastLedgerSequence": 93563197,
-    "Sequence": 91630428,
+    "Flags": 1048576,
+    "LastLedgerSequence": 91790817,
+    "Sequence": 91629927,
     "SigningPubKey": "0398E1DF363D0F9C666C125838029D09818A10A3B40A8A02FB955DB328A16C6D64",
-    "SourceTag": 74920348,
-    "TransactionType": "Payment",
-    "TxnSignature": "3045022100A433FA49AEB6777C76F4B237B15DA56EDEB2715EF1DBB19F251A2256E4E4DBE702201C3B6E895565AACBBAD85580B2890D02256CEB33DBD300AFA00EA47C40BA0A45",
-    "ledger_index": 93563179,
-    "date": 790603751
+    "SourceTag": 11782013,
+    "TransactionType": "AMMDeposit",
+    "TxnSignature": "3044022039E5D6AED887CE3101516049B094138BFCACB784E3DFBAFD69D65D642909E819022053CA1002862DC3ACCC1C1331790A75B9A11ABE3099643994D3A32FC7730096D6",
+    "ledger_index": 91790799,
+    "date": 783681101
 }
