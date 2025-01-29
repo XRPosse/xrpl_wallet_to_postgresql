@@ -432,14 +432,15 @@ if __name__ == "__main__":
         port = "5432"
     )
     cursor = conn.cursor()
-
+    # Huobi mxc.com  rs2dgzYeqYqsk8bvkQR5YPyqsXYcA24MP2
+    ignored_wallets = ['rs2dgzYeqYqsk8bvkQR5YPyqsXYcA24MP2']
     wallet_address='rJf9D35rEzgsgQ9UwDbfYAPwvLRPsjKmV8'
     main(wallet_address, cursor, conn)
     sender_wallets = get_wallets(cursor, wallet_address.lower(), 'sender_wallet', 'xrp_receive') # 'sender_wallet', 'xrp_receive'     'receiver_wallet', 'xrp_payment'
     print('sender_wallets:', sender_wallets)
     for wa in sender_wallets:
         print('wa', wa)
-        if wallet_address != wa and wa != 'rs2dgzYeqYqsk8bvkQR5YPyqsXYcA24MP2':
+        if wallet_address != wa and wa not in ignored_wallets:
             main(wa, cursor, conn)
 
     cursor.close()
